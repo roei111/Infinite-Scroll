@@ -3,7 +3,7 @@
 Stock Photos
 ===============
 */
-.search {
+/* .search {
   padding: 5rem 0 0 0;
   width: 90vw;
   max-width: var(--max-width);
@@ -31,7 +31,7 @@ Stock Photos
 }
 .form-input::placeholder {
   color: var(--clr-grey-5);
-}
+} */
 /* .photos {
   padding: 5rem 0;
 }
@@ -88,7 +88,7 @@ Stock Photos
 .photo:hover .photo-info {
   transform: translateY(0);
 } */
-.photo {
+/* .photo {
  
   position: relative;
   overflow: hidden;
@@ -97,14 +97,18 @@ Stock Photos
 
 .photo-center {
   width: 90vw;
+} */
+
+body{
+  background-color: rgb(113, 118, 122);
 }
 @media screen and (min-width: 576px) {
   /* .photos-center {
     grid-template-columns: repeat(auto-fill, minmax(368px, 1fr));
   } */
-  .search-form {
+  /* .search-form {
     max-width: var(--fixed-width);
-  }
+  } */
 }
 
 .loading {

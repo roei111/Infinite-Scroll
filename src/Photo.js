@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageList, ImageListItem } from "@mui/material";
+import { Grid } from "@mui/material";
 
 const Photo = ({
   urls: { regular, small },
@@ -17,18 +17,17 @@ const Photo = ({
   };
 
   return (
-    <ImageListItem
-      key={mispar}
-      sx={{
-        width: "20rem",
-        // height: "10rem",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* <div className="photo"> */}
-      {/* <h4>{mispar} index key</h4> */}
-      <img src={small} alt={alt_description} onClick={expandImageHandler} />
+    <Grid item key={mispar} sx={{ height: "20rem", width: "30rem",marginX: '10px' }}>
+      <img
+        src={small}
+        alt={alt_description}
+        onClick={expandImageHandler}
+        style={{
+          height: "100%",
+          width: "100%",
+          objectFit: "cover",
+        }}
+      />
       {/* <div className="photo-info">
         <div>
           <h4>{name}</h4>
@@ -38,8 +37,7 @@ const Photo = ({
           <img src={medium} alt={name} className="user-img" />
         </a>
       </div> */}
-      {/* </div> */}
-    </ImageListItem>
+    </Grid>
   );
 };
 

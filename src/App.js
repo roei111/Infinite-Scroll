@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FaSearch } from "react-icons/fa";
 // import { Masonry } from "@mui/lab";
-import {ImageList, ImageListItem} from '@mui/material';
+import { Grid, Paper, TextField, IconButton } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
 import Photo from "./Photo";
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
 const mainUrl = `https://api.unsplash.com/photos/`;
@@ -14,7 +15,7 @@ function App() {
   const [query, setQuery] = useState("");
 
   const fetchImages = async () => {
-    console.log(page)
+    // console.log(page);
     setLoading(true);
     let url;
     const urlPage = `&page=${page}`;
@@ -51,7 +52,7 @@ function App() {
         window.scrollY + window.innerHeight >= document.body.scrollHeight
       ) {
         setPage((prevValue) => {
-          if(prevValue===0){
+          if (prevValue === 0) {
             return prevValue + 2;
           }
           return prevValue + 1;
@@ -65,36 +66,58 @@ function App() {
   const handleSumbit = (e) => {
     e.preventDefault();
     setPage(1);
+    fetchImages();
   };
 
   return (
     <main>
-      <section className="search">
-        <form className="search-form">
-          <input
+      <Paper
+        elavation={3}
+        component={"section"}
+        sx={{ width: {sm:'70vw', md: "50vw" }, margin: "30px auto" }}
+      >
+        <form style={{ padding: "8px 5px", display: "flex", alignItems: "center" }}>
+          {/* <input
             type="text"
             placeholder="search"
             className="form-input"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+          /> */}
+          <IconButton
+            type="submit"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={handleSumbit}
+          >
+            <SearchIcon />
+          </IconButton>
+          <TextField
+            label="Start searching now..."
+            variant="standard"
+            fullWidth
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="submit-btn" onClick={handleSumbit}>
+          {/* <button type="submit" className="submit-btn" onClick={handleSumbit}>
             <FaSearch />
-          </button>
+          </button> */}
         </form>
-      </section>
-      <section className="photos">
-        {/* <div className="photos-center"> */}
-        {/* <Masonry columns={{sm:1, md:3, lg:5}} spacing={1} sx={{width: '90vw',  margin: '0 auto'}}> */}
-        <ImageList cols={4} gap={8} sx={{width: '90vw',  margin: '0 auto'}}>
+      </Paper>
+      <Paper
+        elavation={3}
+        component={"section"}
+        sx={{ width: { sm: "70vw", md: "80vw" }, margin: "0 auto" }}
+        // width={{ sm: '95vw', md: '80vw' }}
+      >
+        <Grid container spacing={2} justifyContent="center">
           {photos.map((photo, index) => {
-            // console.log(photo);
             return <Photo key={index} {...photo} mispar={index} />;
           })}
-        </ImageList>
-        {/* </div> */}
+        </Grid>
+
         {loading && <h2 className="loading">Loading...</h2>}
-      </section>
+      </Paper>
     </main>
   );
 }
