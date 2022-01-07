@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { Masonry } from "@mui/lab";
+
 import { Grid, Paper, TextField, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -13,6 +13,8 @@ function App() {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(0);
   const [query, setQuery] = useState("");
+  const [openScrollUp, setOpenScrollUp] = useState(false);
+  console.log("openscroll: ",openScrollUp)
 
   const fetchImages = async () => {
     // console.log(page);
@@ -47,6 +49,14 @@ function App() {
 
   useEffect(() => {
     const event = window.addEventListener("scroll", () => {
+      // console.log("scrolly ",window.scrollY)
+      // console.log("innerheihtg ",window.innerHeight)
+      // console.log("inside event")
+      console.log(openScrollUp)
+      if(!openScrollUp && window.scrollY>100){
+        setOpenScrollUp(true);
+        console.log("open button")
+      }
       if (
         !loading &&
         window.scrollY + window.innerHeight >= document.body.scrollHeight
