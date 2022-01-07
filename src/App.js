@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-
-import { Grid, Paper, TextField, IconButton } from "@mui/material";
+import {
+  Grid,
+  Paper,
+  TextField,
+  IconButton,
+  CircularProgress,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import ScrollTop from "./ScrollTop";
 
 import Photo from "./Photo";
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
@@ -13,11 +19,8 @@ function App() {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(0);
   const [query, setQuery] = useState("");
-  const [openScrollUp, setOpenScrollUp] = useState(false);
-  console.log("openscroll: ",openScrollUp)
 
   const fetchImages = async () => {
-    // console.log(page);
     setLoading(true);
     let url;
     const urlPage = `&page=${page}`;
@@ -49,14 +52,6 @@ function App() {
 
   useEffect(() => {
     const event = window.addEventListener("scroll", () => {
-      // console.log("scrolly ",window.scrollY)
-      // console.log("innerheihtg ",window.innerHeight)
-      // console.log("inside event")
-      console.log(openScrollUp)
-      if(!openScrollUp && window.scrollY>100){
-        setOpenScrollUp(true);
-        console.log("open button")
-      }
       if (
         !loading &&
         window.scrollY + window.innerHeight >= document.body.scrollHeight
@@ -84,16 +79,11 @@ function App() {
       <Paper
         elavation={3}
         component={"section"}
-        sx={{ width: {sm:'70vw', md: "50vw" }, margin: "30px auto" }}
+        sx={{ width: { sm: "70vw", md: "50vw" }, margin: "30px auto" }}
       >
-        <form style={{ padding: "8px 5px", display: "flex", alignItems: "center" }}>
-          {/* <input
-            type="text"
-            placeholder="search"
-            className="form-input"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          /> */}
+        <form
+          style={{ padding: "8px 5px", display: "flex", alignItems: "center" }}
+        >
           <IconButton
             type="submit"
             sx={{ p: "10px" }}
@@ -109,24 +99,29 @@ function App() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          {/* <button type="submit" className="submit-btn" onClick={handleSumbit}>
-            <FaSearch />
-          </button> */}
         </form>
       </Paper>
       <Paper
         elavation={3}
         component={"section"}
         sx={{ width: { sm: "70vw", md: "80vw" }, margin: "0 auto" }}
-        // width={{ sm: '95vw', md: '80vw' }}
       >
         <Grid container spacing={2} justifyContent="center">
           {photos.map((photo, index) => {
-            return <Photo key={index} {...photo} mispar={index} />;
+            return <Photo key={index} {...photo} mispar={index} />
           })}
         </Grid>
 
-        {loading && <h2 className="loading">Loading...</h2>}
+        <ScrollTop showBelow={250} />
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {true && <CircularProgress sx={{ marginBottom: "50px", marginTop: "10px" }} />}
+        </div>
       </Paper>
     </main>
   );

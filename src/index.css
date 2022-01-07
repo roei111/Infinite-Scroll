@@ -101,6 +101,7 @@ Stock Photos
 
 body{
   background-color: rgb(113, 118, 122);
+  /* background-color:#3498db; */
 }
 @media screen and (min-width: 576px) {
   /* .photos-center {
