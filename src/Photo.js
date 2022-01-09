@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Grow} from "@mui/material";
+import { Grid, Grow } from "@mui/material";
 
 const Photo = ({
   urls: { regular, small },
@@ -17,21 +17,22 @@ const Photo = ({
   };
 
   return (
-    <Grow in={true} >
+    <Grow in={true}>
       <Grid
         item
         key={mispar}
-        sx={{ height: "20rem", width: "30rem", marginX: "10px" }}
-        >
+        sx={{
+          height: "20rem",
+          width: "30rem",
+          marginX: "10px",
+          
+        }}
+      >
         <img
           src={small}
           alt={alt_description}
           onClick={expandImageHandler}
-          style={{
-            height: "100%",
-            width: "100%",
-            objectFit: "cover",
-          }}
+          className="image"
         />
         {/* <div className="photo-info">
       <div>
