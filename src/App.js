@@ -14,7 +14,7 @@ const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
 const mainUrl = `https://api.unsplash.com/photos/`;
 const searchUrl = `https://api.unsplash.com/search/photos/`;
 
-function App() {
+const App=()=> {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(0);
@@ -108,7 +108,8 @@ function App() {
       >
         <Grid container spacing={2} justifyContent="center">
           {photos.map((photo, index) => {
-            return <Photo key={index} {...photo} mispar={index} />
+            // console.log(photo)
+            return <Photo key={index} photo={photo}/>
           })}
         </Grid>
 

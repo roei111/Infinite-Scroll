@@ -1,50 +1,72 @@
-import React from "react";
-import { Grid, Grow } from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Grow, Modal } from "@mui/material";
+import DetailedPhoto from "./DetailedPhoto";
 
-const Photo = ({
-  urls: { regular, small },
-  alt_description,
-  likes,
-  user: {
-    name,
-    portfolio_url,
-    profile_image: { medium },
-  },
-  mispar,
-}) => {
+const Photo = (
+  props
+  //   {
+  //   urls: { small },
+  //   alt_description,
+  //   likes,
+  //   user: {
+  //     name,
+  //     portfolio_url,
+  //     profile_image: { medium },
+  //   },
+  //   id,
+  // }
+) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    urls: { small },
+    alt_description,
+    id,
+  } = props.photo;
+
   const expandImageHandler = () => {
-    console.log("clickeed");
+    setIsModalOpen(true);
   };
+  const handleClose = () => setIsModalOpen(false);
 
   return (
-    <Grow in={true}>
-      <Grid
-        item
-        key={mispar}
-        sx={{
-          height: "20rem",
-          width: "30rem",
-          marginX: "10px",
-          
-        }}
-      >
-        <img
-          src={small}
-          alt={alt_description}
-          onClick={expandImageHandler}
-          className="image"
-        />
-        {/* <div className="photo-info">
-      <div>
-        <h4>{name}</h4>
-        <p>{likes} likes</p>
-      </div>
-      <a href={portfolio_url}>
-        <img src={medium} alt={name} className="user-img" />
-      </a>
-    </div> */}
-      </Grid>
-    </Grow>
+    <>
+      <Modal open={isModalOpen} onClose={handleClose} closeAfterTransition sx={{overflow:'scroll'}}>
+        <div
+          style={{
+            // maxWidth: "100vw",
+            maxHeight: "80vh",
+            width: "auto",
+            // position: "absolute",
+            // top: "50%",
+            // left: "50%",
+            // transform: "translateY(-50%)",
+            // transform: "translate(-50%, -50%)",
+            margin: "0 auto",
+            marginTop: "5rem"
+          }}
+        >
+          <DetailedPhoto photo={props.photo} closeModal={handleClose} />
+        </div>
+      </Modal>
+      <Grow in={true}>
+        <Grid
+          item
+          key={id}
+          sx={{
+            height: "20rem",
+            width: "30rem",
+            marginX: "10px",
+          }}
+        >
+          <img
+            src={small}
+            alt={alt_description}
+            onClick={expandImageHandler}
+            className="image"
+          />
+        </Grid>
+      </Grow>
+    </>
   );
 };
 
