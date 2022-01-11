@@ -1,9 +1,18 @@
 import React from "react";
-import { Paper, IconButton, TextField } from "@mui/material";
+import {
+  Paper,
+  IconButton,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SearchForm = (props) => {
-  const {handleSubmit, query, setQuery}= props
+  const { handleSubmit, query, setQuery, sortBy, setSortBy } = props;
+
   return (
     <Paper
       elavation={3}
@@ -28,9 +37,28 @@ const SearchForm = (props) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
+        {query ? (
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="sort-by">Sort by</InputLabel>
+            <Select
+              labelId="sort-by"
+              id="sort-by"
+              defaultValue={"relevant"}
+            //   value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              label="Sort by"
+            >
+              {/* <MenuItem value={{query.length===0 ? "relevant": "popular"}}>Relevance</MenuItem> */}
+              
+              <MenuItem value={"relevant"}>Relevance</MenuItem>
+
+              <MenuItem value={"latest"}>Newest</MenuItem>
+            </Select>
+          </FormControl>
+        ) : null}
       </form>
     </Paper>
   );
-};
+}
 
 export default SearchForm;

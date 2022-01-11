@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-
 import ScrollTop from "./ScrollTop";
-
-
 import SearchForm from "./SearchForm";
 import PhotoList from "./PhotosList";
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
@@ -14,24 +11,42 @@ const App = () => {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(0);
   const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  // const [orientation, setSortBy] = useState("latest");
 
-  const fetchImages = async () => {
+  const fetchImages = async (resetData = false) => {
+    console.log("resetdata: ", resetData)
     setLoading(true);
     let url;
     const urlPage = `&page=${page}`;
     const urlQuery = `&query=${query}`;
+    const urlSortBy = `&order_by=${sortBy}`;
     url = query
-      ? `${searchUrl}${clientID}${urlPage}${urlQuery}`
+      ? `${searchUrl}${clientID}${urlPage}${urlQuery}${urlSortBy}`
       : `${mainUrl}${clientID}${urlPage}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
+      console.log("data: ", data)
       setPhotos((prevValue) => {
-        if (query && page === 1) {
+        if ((query && page === 1)) {
           return data.results;
-        } else if (query) {
+        }
+        else if(!query && resetData){
+          console.log("Reset")
+          return data;
+        }
+         else if (query && resetData) {
+          return data.results;
+        }
+         else if (query) {
           return [...prevValue, ...data.results];
         }
+
+        // else if (sortBy) {
+        //   return data;
+        // }
+
         return [...prevValue, ...data];
       });
       setLoading(false);
@@ -42,8 +57,15 @@ const App = () => {
   };
   useEffect(() => {
     fetchImages();
-    // eslint-disable-next-line
+ // eslint-disable-next-line
   }, [page]);
+  
+  useEffect(() => {
+    console.log("inside use effeect")
+    fetchImages(true);
+// eslint-disable-next-line
+  }, [sortBy]);
+
 
   useEffect(() => {
     const event = window.addEventListener("scroll", () => {
@@ -76,8 +98,10 @@ const App = () => {
         handleSubmit={handleSubmit}
         query={query}
         setQuery={setQuery}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
       />
-      <PhotoList photos={photos} loading={loading}/>
+      <PhotoList photos={photos} loading={loading} />
       <ScrollTop showBelow={250} />
     </main>
   );
