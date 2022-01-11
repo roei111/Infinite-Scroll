@@ -25,10 +25,15 @@ const DetailedPhoto = (props) => {
     links: { html },
     created_at,
   } = props.photo;
-  console.log(props.photo);
   return (
     <Slide direction="up" in={true} mountOnEnter unmountOnExit>
-      <Card>
+      <Card
+        sx={{
+          margin: "0 auto",
+          marginTop: "1rem",
+          width: { md: "85vw" },
+        }}
+      >
         <CardHeader
           avatar={
             <Avatar aria-label="profile_image">
@@ -57,14 +62,19 @@ const DetailedPhoto = (props) => {
           }
           subheader={location}
         />
-        <CardMedia component="img" image={regular} alt="Paella dish" sx={{maxHeight: "75vh", objectFit: "contain"}}/>
+        <CardMedia
+          component="img"
+          image={regular}
+          alt="Paella dish"
+          sx={{ maxHeight: "75vh", objectFit: "contain" }}
+        />
         <CardActions
           sx={{
             display: "flex",
-            justifyContent: {xs:"space-between", md: "space-evenly"},
+            justifyContent: { xs: "space-between", md: "space-evenly" },
           }}
         >
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <FavoriteIcon />
             <Typography ml={1}>{likes} likes</Typography>
           </div>
@@ -79,7 +89,7 @@ const DetailedPhoto = (props) => {
           </Typography>
         </CardActions>
       </Card>
-    </Slide>
+      </Slide>
   );
 };
 

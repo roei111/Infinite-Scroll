@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  Paper,
-  TextField,
-  IconButton,
-  CircularProgress,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+
 import ScrollTop from "./ScrollTop";
 
-import Photo from "./Photo";
+
+import SearchForm from "./SearchForm";
+import PhotoList from "./PhotosList";
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
 const mainUrl = `https://api.unsplash.com/photos/`;
 const searchUrl = `https://api.unsplash.com/search/photos/`;
 
-const App=()=> {
+const App = () => {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(0);
@@ -68,64 +63,24 @@ const App=()=> {
     // eslint-disable-next-line
   }, []);
 
-  const handleSumbit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setPhotos([]);
     setPage(1);
     fetchImages();
   };
 
   return (
     <main>
-      <Paper
-        elavation={3}
-        component={"section"}
-        sx={{ width: { sm: "70vw", md: "50vw" }, margin: "30px auto" }}
-      >
-        <form
-          style={{ padding: "8px 5px", display: "flex", alignItems: "center" }}
-        >
-          <IconButton
-            type="submit"
-            sx={{ p: "10px" }}
-            aria-label="search"
-            onClick={handleSumbit}
-          >
-            <SearchIcon />
-          </IconButton>
-          <TextField
-            label="Start searching now..."
-            variant="standard"
-            fullWidth
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </form>
-      </Paper>
-      <Paper
-        elavation={3}
-        component={"section"}
-        sx={{ width: { sm: "70vw", md: "80vw" }, margin: "0 auto" }}
-      >
-        <Grid container spacing={2} justifyContent="center">
-          {photos.map((photo, index) => {
-            // console.log(photo)
-            return <Photo key={index} photo={photo}/>
-          })}
-        </Grid>
-
-        <ScrollTop showBelow={250} />
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {true && <CircularProgress sx={{ marginBottom: "50px", marginTop: "10px" }} />}
-        </div>
-      </Paper>
+      <SearchForm
+        handleSubmit={handleSubmit}
+        query={query}
+        setQuery={setQuery}
+      />
+      <PhotoList photos={photos} loading={loading}/>
+      <ScrollTop showBelow={250} />
     </main>
   );
-}
+};
 
 export default App;

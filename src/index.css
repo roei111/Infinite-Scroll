@@ -107,6 +107,7 @@ body{
 .image{
   height: 100%;
   width: 100%;
+  /* margin: 10px 10px; */
   filter: brightness(100%);
   object-fit: cover;
   transition: .5s ease;
