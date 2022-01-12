@@ -1,15 +1,18 @@
 import React from "react";
-import { Grid, Paper, CircularProgress } from "@mui/material";
+import { Grid, Paper, CircularProgress, Typography } from "@mui/material";
 import Photo from "./Photo";
 
 const PhotoList = (props) => {
-    const {photos, loading}= props;
+  const { photos, loading } = props;
   return (
     <Paper
       elavation={3}
       component={"section"}
       sx={{ width: { sm: "70vw", md: "80vw" }, margin: "0 auto" }}
     >
+      <Typography variant="h3" component="div" textAlign={"center"}>
+        Click image to view full size
+      </Typography>
       <Grid container spacing={2} justifyContent="center">
         {photos.map((photo, index) => {
           return (
