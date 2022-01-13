@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import ScrollTop from "./ScrollTop";
 import SearchForm from "./SearchForm";
 import PhotoList from "./PhotosList";
+import { IconButton, Collapse, Alert, Snackbar } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
 const mainUrl = `https://api.unsplash.com/photos/`;
 const searchUrl = `https://api.unsplash.com/search/photos/`;
@@ -17,7 +20,7 @@ const App = () => {
 
   const fetchImages = async (resetData = false) => {
     console.log("resetdata: ", resetData);
-    console.log("color: ",color)
+    console.log("color: ", color);
     setLoading(true);
     let url;
     const urlPage = `&page=${page}`;
@@ -25,8 +28,7 @@ const App = () => {
     const urlSortBy = `&order_by=${sortBy}`;
     const urlOrientation =
       orientation !== "any" ? `&orientation=${orientation}` : "";
-    const urlColor =
-      color !== "any" ? `&color=${color.toLowerCase()}` : "";
+    const urlColor = color !== "any" ? `&color=${color.toLowerCase()}` : "";
     url = query
       ? `${searchUrl}${clientID}${urlPage}${urlQuery}${urlSortBy}${urlOrientation}${urlColor}`
       : `${mainUrl}${clientID}${urlPage}`;

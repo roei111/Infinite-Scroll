@@ -8,7 +8,6 @@ import {
   Select,
   MenuItem,
   Collapse,
-  Button
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CropPortraitSharpIcon from "@mui/icons-material/CropPortraitSharp";
@@ -132,9 +131,9 @@ const SearchForm = (props) => {
               >
                 <MenuItem value={"any"}>Any color</MenuItem>
                 <MenuItem value={"black_and_white"}>Black and white</MenuItem>
-                {palette.map((color) => {
+                {palette.map((color, index) => {
                   return (
-                    <MenuItem value={color}>
+                    <MenuItem value={color} key={index}>
                       <CircleIcon
                         style={{ fill: `${color}`, marginRight: "5px" }}
                       />
