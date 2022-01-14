@@ -15,7 +15,6 @@ import CropPortraitSharpIcon from "@mui/icons-material/CropPortraitSharp";
 import CropSquareSharpIcon from "@mui/icons-material/CropSquareSharp";
 import CropLandscapeSharpIcon from "@mui/icons-material/CropLandscapeSharp";
 import CircleIcon from "@mui/icons-material/Circle";
-// import { CirclePicker } from "react-color";
 
 const palette = [
   "Black",
@@ -72,7 +71,7 @@ const SearchForm = (props) => {
             padding: "10px 0",
           }}
         >
-          <IconButton type="submit" aria-label="search" onClick={handleSubmit} >
+          <IconButton type="submit" aria-label="search" onClick={handleSubmit}>
             <SearchIcon />
           </IconButton>
           <TextField
@@ -182,6 +181,10 @@ const SearchForm = (props) => {
                 minWidth: 150,
                 verticalAlign: "baseline",
                 backgroundColor: "#D2042D",
+                borderRadius: "10px",
+                "&:hover": {
+                  backgroundColor: "#b00024",
+                },
               }}
               onClick={clearFilters}
             >

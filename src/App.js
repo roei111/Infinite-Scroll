@@ -3,7 +3,6 @@ import ScrollTop from "./ScrollTop";
 import SearchForm from "./SearchForm";
 import PhotoList from "./PhotosList";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
 const mainUrl = `https://api.unsplash.com/photos/`;
@@ -35,23 +34,18 @@ const App = () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
+
       console.log("data: ", data);
       setPhotos((prevValue) => {
         if (query && page === 1) {
           return data.results;
         } else if (!query && resetData) {
-          console.log("Reset");
           return data;
         } else if (query && resetData) {
           return data.results;
         } else if (query) {
           return [...prevValue, ...data.results];
         }
-
-        // else if (sortBy) {
-        //   return data;
-        // }
-
         return [...prevValue, ...data];
       });
       setLoading(false);

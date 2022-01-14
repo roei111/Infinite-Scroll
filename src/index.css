@@ -115,7 +115,7 @@ body {
 
 .image:hover {
   filter: brightness(80%);
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 

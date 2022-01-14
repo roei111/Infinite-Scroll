@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Paper, CircularProgress, Alert, Collapse } from "@mui/material";
+import React from "react";
+import { Grid, Paper, CircularProgress } from "@mui/material";
 import Photo from "./Photo";
-import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 
 const PhotoList = (props) => {
   const { photos, loading } = props;
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-
-  useEffect(() => {
-    setIsAlertOpen(true);
-    const timer = setTimeout(() => {
-      setIsAlertOpen(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <Paper
       elavation={3}
       component={"section"}
-      sx={{ width: { sm: "70vw", md: "80vw" },paddingTop: "0.5rem", margin: "0 auto", backgroundColor: "#ffffff" }}
+      sx={{
+        width: { sm: "70vw", md: "80vw" },
+        padding: "0.5rem 0",
+        margin: "0 auto",
+        backgroundColor: "#ffffff",
+      }}
     >
-      <Collapse in={isAlertOpen}>
+      {/* <Collapse in={isAlertOpen}>
         <Alert
           onClose={() => setIsAlertOpen(false)}
           severity="info"
@@ -30,7 +25,7 @@ const PhotoList = (props) => {
         >
           Click image to view full size
         </Alert>
-      </Collapse>
+      </Collapse> */}
       <Grid container spacing={2} justifyContent="center">
         {photos.map((photo, index) => {
           return (
@@ -41,11 +36,10 @@ const PhotoList = (props) => {
                 height: "20rem",
                 width: "30rem",
                 marginX: "10px",
-                position: "relative"
+                position: "relative",
               }}
             >
               <Photo photo={photo} />
-              <OpenInFullIcon style={{ position: "absolute" }} />
             </Grid>
           );
         })}

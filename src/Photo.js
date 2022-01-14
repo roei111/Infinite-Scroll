@@ -28,15 +28,25 @@ const Photo = (props) => {
         </>
       </Modal>
       <Grow in={true}>
-        {/* <div style={{height: "100%", width: "100%"}}> */}
+        <div style={{ height: "100%", width: "100%", position: "relative", cursor: "pointer" }} onClick={expandImageHandler}>
           <img
             src={small}
             alt={alt_description}
-            onClick={expandImageHandler}
             className="image"
           />
-          
-        {/* </div> */}
+          <OpenInFullIcon
+            style={{
+              position: "absolute",
+              right: "0",
+              fill: "white",
+              padding: "0.5rem",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              borderRadius: "50%",
+              margin: "0.25rem",
+            }}
+            fontSize="small"
+          />
+        </div>
       </Grow>
     </>
   );

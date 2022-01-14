@@ -42,8 +42,9 @@ const ScrollTop = ({ showBelow }) => {
             bottom: "2vh",
             borderRadius: "10px",
             backgroundColor: "#D2042D",
-            // color: "black"
-            
+            '&:hover': {
+              backgroundColor: "#b00024",
+            },
           }}
           variant="contained"
           aria-label="to top"
