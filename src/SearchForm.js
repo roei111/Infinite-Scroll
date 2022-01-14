@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Paper,
   IconButton,
@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
   Collapse,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CropPortraitSharpIcon from "@mui/icons-material/CropPortraitSharp";
@@ -29,21 +30,32 @@ const palette = [
 ];
 
 const SearchForm = (props) => {
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {
     handleSubmit,
     query,
     setQuery,
+    sortBy,
     setSortBy,
+    orientation,
     setOrientation,
     setColor,
+    color,
   } = props;
   let openFilters = query.length !== 0;
+
+  const clearFilters = () => {
+    setOrientation("any");
+    setColor("any");
+    setSortBy("relevant");
+    setIsButtonDisabled(true);
+  };
 
   return (
     <Paper
       elavation={3}
       component={"section"}
-      sx={{ width: { sm: "70vw", md: "50vw" }, margin: "30px auto" }}
+      sx={{ width: { sm: "70vw", md: "50vw" }, margin: "1rem auto" }}
     >
       <form
         style={{
@@ -60,7 +72,7 @@ const SearchForm = (props) => {
             padding: "10px 0",
           }}
         >
-          <IconButton type="submit" aria-label="search" onClick={handleSubmit}>
+          <IconButton type="submit" aria-label="search" onClick={handleSubmit} >
             <SearchIcon />
           </IconButton>
           <TextField
@@ -72,7 +84,14 @@ const SearchForm = (props) => {
           />
         </div>
         <Collapse in={openFilters}>
-          {/* <div style={{display:"flex", flexWrap: "wrap", justifyContent: "center"}}> */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              alignItems: "flex-end",
+            }}
+          >
             <FormControl
               variant="standard"
               sx={{ m: 1, minWidth: 150, verticalAlign: "baseline" }}
@@ -82,7 +101,11 @@ const SearchForm = (props) => {
                 labelId="sort-by"
                 id="sort-by"
                 defaultValue={"relevant"}
-                onChange={(e) => setSortBy(e.target.value)}
+                value={sortBy}
+                onChange={(e) => {
+                  setSortBy(e.target.value);
+                  setIsButtonDisabled(false);
+                }}
                 label="Sort by"
               >
                 <MenuItem value={"relevant"}>Relevance</MenuItem>
@@ -99,7 +122,11 @@ const SearchForm = (props) => {
                 labelId="orientation"
                 id="orientation"
                 defaultValue={"any"}
-                onChange={(e) => setOrientation(e.target.value)}
+                value={orientation}
+                onChange={(e) => {
+                  setOrientation(e.target.value);
+                  setIsButtonDisabled(false);
+                }}
                 label="Orientation"
               >
                 <MenuItem value={"any"}>Any orientation</MenuItem>
@@ -126,7 +153,11 @@ const SearchForm = (props) => {
                 labelId="color"
                 id="color"
                 defaultValue={"any"}
-                onChange={(e) => setColor(e.target.value)}
+                value={color}
+                onChange={(e) => {
+                  setColor(e.target.value);
+                  setIsButtonDisabled(false);
+                }}
                 label="Color"
               >
                 <MenuItem value={"any"}>Any color</MenuItem>
@@ -143,8 +174,20 @@ const SearchForm = (props) => {
                 })}
               </Select>
             </FormControl>
-            {/* <Button variant="link" sx={{ m: 1, minWidth: 150, verticalAlign: "baseline", color:"black" }}>Clear filters</Button> */}
-          {/* </div> */}
+            <Button
+              variant="contained"
+              disabled={isButtonDisabled}
+              sx={{
+                m: 1,
+                minWidth: 150,
+                verticalAlign: "baseline",
+                backgroundColor: "#D2042D",
+              }}
+              onClick={clearFilters}
+            >
+              Clear filters
+            </Button>
+          </div>
         </Collapse>
       </form>
     </Paper>

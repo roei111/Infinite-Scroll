@@ -99,33 +99,25 @@ Stock Photos
   width: 90vw;
 } */
 
-body{
-  background-color: rgb(113, 118, 122);
-  /* background-color:#3498db; */
+body {
+  /* background-color: rgb(113, 118, 122); */
+  background-color: #e5e5e5;
+  margin: 0;
 }
 
-.image{
+.image {
   height: 100%;
   width: 100%;
-  /* margin: 10px 10px; */
   filter: brightness(100%);
   object-fit: cover;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
-.image:hover{
+.image:hover {
   filter: brightness(80%);
   cursor: pointer;
 }
 
-@media screen and (min-width: 576px) {
-  /* .photos-center {
-    grid-template-columns: repeat(auto-fill, minmax(368px, 1fr));
-  } */
-  /* .search-form {
-    max-width: var(--fixed-width);
-  } */
-}
 
 .loading {
   text-align: center;

@@ -41,6 +41,8 @@ const ScrollTop = ({ showBelow }) => {
             position: "fixed",
             bottom: "2vh",
             borderRadius: "10px",
+            backgroundColor: "#D2042D",
+            // color: "black"
             
           }}
           variant="contained"

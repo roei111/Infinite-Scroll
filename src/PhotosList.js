@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Paper, CircularProgress, Alert, Collapse } from "@mui/material";
 import Photo from "./Photo";
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 
 const PhotoList = (props) => {
   const { photos, loading } = props;
@@ -18,14 +19,14 @@ const PhotoList = (props) => {
     <Paper
       elavation={3}
       component={"section"}
-      sx={{ width: { sm: "70vw", md: "80vw", paddingTop: "0.5rem" }, margin: "0 auto" }}
+      sx={{ width: { sm: "70vw", md: "80vw" },paddingTop: "0.5rem", margin: "0 auto", backgroundColor: "#ffffff" }}
     >
       <Collapse in={isAlertOpen}>
         <Alert
           onClose={() => setIsAlertOpen(false)}
           severity="info"
           variant="filled"
-          sx={{ width: "70%", margin: "0 auto 0.3rem" }}
+          sx={{ width: "70%", margin: "0 auto 0.3rem", backgroundColor: "#D2042D" }}
         >
           Click image to view full size
         </Alert>
@@ -40,9 +41,11 @@ const PhotoList = (props) => {
                 height: "20rem",
                 width: "30rem",
                 marginX: "10px",
+                position: "relative"
               }}
             >
               <Photo photo={photo} />
+              <OpenInFullIcon style={{ position: "absolute" }} />
             </Grid>
           );
         })}

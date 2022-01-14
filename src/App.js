@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ScrollTop from "./ScrollTop";
 import SearchForm from "./SearchForm";
 import PhotoList from "./PhotosList";
-import { IconButton, Collapse, Alert, Snackbar } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
@@ -35,6 +35,7 @@ const App = () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
+      console.log("data: ", data);
       setPhotos((prevValue) => {
         if (query && page === 1) {
           return data.results;
@@ -96,21 +97,30 @@ const App = () => {
   };
 
   return (
-    <main>
-      <SearchForm
-        handleSubmit={handleSubmit}
-        query={query}
-        setQuery={setQuery}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        orientation={orientation}
-        setOrientation={setOrientation}
-        color={color}
-        setColor={setColor}
-      />
-      <PhotoList photos={photos} loading={loading} />
-      <ScrollTop showBelow={250} />
-    </main>
+    <>
+      <AppBar position="static" sx={{backgroundColor: "#D2042D"}}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
+            Infinite Scroll Stock Photos
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <main style={{margin: "0.5rem"}}>
+        <SearchForm
+          handleSubmit={handleSubmit}
+          query={query}
+          setQuery={setQuery}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          orientation={orientation}
+          setOrientation={setOrientation}
+          color={color}
+          setColor={setColor}
+        />
+        <PhotoList photos={photos} loading={loading} />
+        <ScrollTop showBelow={250} />
+      </main>
+    </>
   );
 };
 

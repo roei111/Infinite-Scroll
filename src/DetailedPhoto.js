@@ -29,7 +29,7 @@ const DetailedPhoto = (props) => {
     <Slide direction="up" in={true} mountOnEnter unmountOnExit>
       <Card
         sx={{
-          margin: "0 auto",
+          margin: { xs: "0.5rem", md: "1rem auto" },
           marginTop: "1rem",
           width: { md: "85vw" },
         }}
@@ -75,7 +75,7 @@ const DetailedPhoto = (props) => {
           }}
         >
           <div style={{ display: "flex" }}>
-            <FavoriteIcon />
+            <FavoriteIcon style={{ fill: "#D2042D" }} />
             <Typography ml={1}>{likes} likes</Typography>
           </div>
 
@@ -89,7 +89,7 @@ const DetailedPhoto = (props) => {
           </Typography>
         </CardActions>
       </Card>
-      </Slide>
+    </Slide>
   );
 };
 
