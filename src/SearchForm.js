@@ -16,6 +16,7 @@ import CropSquareSharpIcon from "@mui/icons-material/CropSquareSharp";
 import CropLandscapeSharpIcon from "@mui/icons-material/CropLandscapeSharp";
 import CircleIcon from "@mui/icons-material/Circle";
 
+//Colors palette for the Color filter
 const palette = [
   "Black",
   "White",

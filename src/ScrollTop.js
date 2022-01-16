@@ -3,25 +3,22 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Button, Slide } from "@mui/material";
 
 const ScrollTop = ({ showBelow }) => {
-  const [show, setShow] = useState(showBelow ? false : true);
-
-  const handleScroll = () => {
-    if (window.pageYOffset > showBelow) {
-      if (!show) setShow(true);
-    } else {
-      if (show) setShow(false);
-    }
-  };
+  const [show, setShow] = useState(false);
 
   const handleClick = () => {
-    window[`scrollTo`]({ top: 0, behavior: `smooth` });
+    window.scrollTo({ top: 0, behavior: `smooth` });
   };
 
   useEffect(() => {
-    if (showBelow) {
-      window.addEventListener(`scroll`, handleScroll);
-      return () => window.removeEventListener(`scroll`, handleScroll);
-    }
+      const event= window.addEventListener(`scroll`,() => {
+        //Check if the vertical scroll pixels is bigger than the showBelow pixels and show button accordingly
+        if (window.scrollY > showBelow) {
+          if (!show) setShow(true);
+        } else {
+          if (show) setShow(false);
+        }
+      } );
+      return () => window.removeEventListener(`scroll`, event);
   });
 
   return (
