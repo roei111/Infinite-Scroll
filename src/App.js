@@ -3,8 +3,9 @@ import ScrollTop from "./ScrollTop";
 import SearchForm from "./SearchForm";
 import PhotoList from "./PhotosList";
 import NavBar from "./NavBar";
-import smoothscroll from 'smoothscroll-polyfill';
 
+//Enable smooth scroll for ios devices
+import smoothscroll from 'smoothscroll-polyfill';
 smoothscroll.polyfill();
 //Access key and urls to Unsplash API
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
@@ -19,7 +20,7 @@ const App = () => {
   const [sortBy, setSortBy] = useState("relevant");
   const [orientation, setOrientation] = useState("any");
   const [color, setColor] = useState("any");
-  const [noResultsMessage, setNoResultsMesage] = useState({
+  const [noResultsMessage, setNoResultsMessage] = useState({
     message: "",
     isPrevPhotos: false,
   });
@@ -27,7 +28,7 @@ const App = () => {
   //When some filter variable changes, the function runs with 'resetData' variable sets to true.
   const fetchImages = async (resetData = false) => {
     setLoading(true);
-    setNoResultsMesage({ message: "", isPrevPhotos: false });
+    
     console.log("inside")
     //Set the url params
     let url;
@@ -48,23 +49,24 @@ const App = () => {
       if (data.results && data.results.length === 0) {
         if (data.total === 0) {
           if (resetData) {
-            setNoResultsMesage({
+            setNoResultsMessage({
               message: `Sorry, we could'nt find anything for "${query}" with your filters`,
               isPrevPhotos: false,
             });
           } else {
-            setNoResultsMesage({
+            setNoResultsMessage({
               message: `Sorry, we could'nt find anything for "${query}"`,
               isPrevPhotos: false,
             });
           }
         } else
-          setNoResultsMesage({
+          setNoResultsMessage({
             message: "Sorry, there is no more results :(",
             isPrevPhotos: true,
           });
       } else {
         //Set the new photos according to the parameters
+        setNoResultsMessage({ message: "", isPrevPhotos: false });
         setPhotos((prevValue) => {
           if (query && page === 1) {
             return data.results;
@@ -81,7 +83,7 @@ const App = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      setNoResultsMesage({
+      setNoResultsMessage({
         message:
           "There is a limit of 50 searches per hour, please try again later.",
         isPrevPhotos: false,
@@ -104,11 +106,12 @@ const App = () => {
   useEffect(() => {
     //event listener that checks if the user scrolled to down to the end of the page
     const event = window.addEventListener("scroll", () => {
+      console.log(noResultsMessage.message)
       if (
-        !loading && !noResultsMessage.message &&
+        !loading && noResultsMessage.message==="" &&
         window.scrollY + window.innerHeight >= document.body.scrollHeight
       ) {
-        //
+        console.log("inside the if")
         setPage((prevValue) => {
           if (prevValue === 0) {
             return prevValue + 2;
@@ -119,7 +122,7 @@ const App = () => {
     });
     return () => window.removeEventListener("scroll", event);
     // eslint-disable-next-line
-  }, []);
+  }, [noResultsMessage.message]);
 
   const handleSubmit = (e) => {
     //reset the photos data and run fetchImages function
