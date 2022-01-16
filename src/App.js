@@ -3,7 +3,9 @@ import ScrollTop from "./ScrollTop";
 import SearchForm from "./SearchForm";
 import PhotoList from "./PhotosList";
 import NavBar from "./NavBar";
+import smoothscroll from 'smoothscroll-polyfill';
 
+smoothscroll.polyfill();
 //Access key and urls to Unsplash API
 const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
 const mainUrl = `https://api.unsplash.com/photos/`;
