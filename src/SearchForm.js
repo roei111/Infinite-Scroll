@@ -72,9 +72,6 @@ const SearchForm = (props) => {
             padding: "10px 0",
           }}
         >
-          <IconButton type="submit" aria-label="search" onClick={handleSubmit}>
-            <SearchIcon />
-          </IconButton>
           <TextField
             label="Start searching now..."
             variant="standard"
@@ -82,6 +79,23 @@ const SearchForm = (props) => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
+          <Button
+            onClick={handleSubmit}
+            type="submit"
+            sx={{
+              padding: "10px 16px",
+              backgroundColor: "#D2042D",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "#b00024",
+              },
+            }}
+            variant="contained"
+            aria-label="search"
+            endIcon={<SearchIcon />}
+          >
+            Search
+          </Button>
         </div>
         <Collapse in={openFilters}>
           <div
