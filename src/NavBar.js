@@ -1,17 +1,13 @@
 import React from "react";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar} from "@mui/material";
 
 const NavBar = () => {
   return (
     <AppBar position="static" sx={{ backgroundColor: "#D2042D" }}>
       <Toolbar>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, textAlign: "center" }}
-        >
+        <h1 style={{flexGrow: 1, textAlign: "center", fontFamily: "'Caveat', cursive", margin:"0", fontWeight: "400"}}>
           Infinite Scroll Stock Photos
-        </Typography>
+          </h1>
       </Toolbar>
     </AppBar>
   );

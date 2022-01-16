@@ -26,7 +26,7 @@ const App = () => {
   const fetchImages = async (resetData = false) => {
     setLoading(true);
     setNoResultsMesage({ message: "", isPrevPhotos: false });
-
+    console.log("inside")
     //Set the url params
     let url;
     const urlPage = `&page=${page}`;
@@ -103,7 +103,7 @@ const App = () => {
     //event listener that checks if the user scrolled to down to the end of the page
     const event = window.addEventListener("scroll", () => {
       if (
-        !loading &&
+        !loading && !noResultsMessage.message &&
         window.scrollY + window.innerHeight >= document.body.scrollHeight
       ) {
         //
