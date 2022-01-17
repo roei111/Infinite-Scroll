@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Paper, CircularProgress,Typography } from "@mui/material";
+import { Grid, Paper, CircularProgress, Typography } from "@mui/material";
 import Photo from "./Photo";
 
 const PhotoList = (props) => {
@@ -40,17 +40,20 @@ const PhotoList = (props) => {
         <Typography variant="h3" mb={5} textAlign={"center"} component="div">
           {message.message}
         </Typography>
-      ) : null}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {loading && (
-          <CircularProgress sx={{ marginBottom: "50px", marginTop: "10px" }} />
-        )}
-      </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {loading && (
+            <CircularProgress
+              sx={{ marginBottom: "50px", marginTop: "10px" }}
+            />
+          )}
+        </div>
+      )}
     </Paper>
   );
 };

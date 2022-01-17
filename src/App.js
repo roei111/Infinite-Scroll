@@ -5,10 +5,14 @@ import PhotoList from "./PhotosList";
 import NavBar from "./NavBar";
 
 //Enable smooth scroll for ios devices
-import smoothscroll from 'smoothscroll-polyfill';
+import smoothscroll from "smoothscroll-polyfill";
 smoothscroll.polyfill();
+
+//Unsplash limits their free api to 50 requests per hour, so I opened 12 'projects' to bypass the limit, and this random helps to switch between the keys
+const randomNum = Math.floor(Math.random() * (12 - 1 + 1) + 1);
 //Access key and urls to Unsplash API
-const clientID = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
+const access = `REACT_APP_ACCESS_KEY${randomNum}`;
+const clientID = `?client_id=${process.env[access]}`;
 const mainUrl = `https://api.unsplash.com/photos/`;
 const searchUrl = `https://api.unsplash.com/search/photos/`;
 
@@ -28,8 +32,6 @@ const App = () => {
   //When some filter variable changes, the function runs with 'resetData' variable sets to true.
   const fetchImages = async (resetData = false) => {
     setLoading(true);
-    
-    console.log("inside")
     //Set the url params
     let url;
     const urlPage = `&page=${page}`;
@@ -44,6 +46,10 @@ const App = () => {
       : `${mainUrl}${clientID}${urlPage}`;
     try {
       const response = await fetch(url);
+      //In this api status code 403 means you've reached the maximum requests per hour so when this happends, I refresh the page to get new access key with 50 more requests
+      if (response.status === 403) {
+        window.location.reload();
+      }
       const data = await response.json();
       //Checks if there is no results at all, or no more results, and sets the message
       if (data.results && data.results.length === 0) {
@@ -88,7 +94,6 @@ const App = () => {
           "There is a limit of 50 searches per hour, please try again later.",
         isPrevPhotos: false,
       });
-      console.log(error);
     }
   };
   //
@@ -106,12 +111,11 @@ const App = () => {
   useEffect(() => {
     //event listener that checks if the user scrolled to down to the end of the page
     const event = window.addEventListener("scroll", () => {
-      console.log(noResultsMessage.message)
       if (
-        !loading && noResultsMessage.message==="" &&
+        !loading &&
+        noResultsMessage.message === "" &&
         window.scrollY + window.innerHeight >= document.body.scrollHeight
       ) {
-        console.log("inside the if")
         setPage((prevValue) => {
           if (prevValue === 0) {
             return prevValue + 2;
