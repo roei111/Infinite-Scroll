@@ -28,6 +28,7 @@ const App = () => {
     message: "",
     isPrevPhotos: false,
   });
+  const [addNewPhotos, setAddNewPhotos] = useState(false)
 
   //When some filter variable changes, the function runs with 'resetData' variable sets to true.
   const fetchImages = async (resetData = false) => {
@@ -51,6 +52,7 @@ const App = () => {
         window.location.reload();
       }
       const data = await response.json();
+      console.log("data: ",data)
       //Checks if there is no results at all, or no more results, and sets the message
       if (data.results && data.results.length === 0) {
         if (data.total === 0) {
@@ -72,7 +74,6 @@ const App = () => {
           });
       } else {
         //Set the new photos according to the parameters
-        setNoResultsMessage({ message: "", isPrevPhotos: false });
         setPhotos((prevValue) => {
           if (query && page === 1) {
             return data.results;
@@ -85,10 +86,14 @@ const App = () => {
           }
           return [...prevValue, ...data];
         });
+        console.log("in the else resetinig the message");
+        setNoResultsMessage({ message: "", isPrevPhotos: false });
       }
       setLoading(false);
+      setAddNewPhotos(false);
     } catch (error) {
       setLoading(false);
+      setAddNewPhotos(false);
       setNoResultsMessage({
         message:
           "There is a limit of 50 searches per hour, please try again later.",
@@ -102,6 +107,19 @@ const App = () => {
     // eslint-disable-next-line
   }, [page]);
 
+  useEffect(() => {
+    if(!addNewPhotos) return;
+    if(loading) return;
+    console.log("changing the page");
+    setPage((prevValue) => {
+      if (prevValue === 0) {
+        return prevValue + 2;
+      }
+      return prevValue + 1;
+    });
+    // eslint-disable-next-line
+  }, [addNewPhotos]);
+
   //when some filter variable changes, the fetchImages function runs with 'resetData' variable sets to true.
   useEffect(() => {
     fetchImages(true);
@@ -110,23 +128,25 @@ const App = () => {
 
   useEffect(() => {
     //event listener that checks if the user scrolled to down to the end of the page
+    console.log(noResultsMessage.message);
+    if (noResultsMessage.message !== "") {
+      console.log("returning");
+      return;
+    }
+    if (loading) {
+      console.log("loading... return");
+      return;
+    }
     const event = window.addEventListener("scroll", () => {
-      if (
-        !loading &&
-        noResultsMessage.message === "" &&
-        window.scrollY + window.innerHeight >= document.body.scrollHeight
-      ) {
-        setPage((prevValue) => {
-          if (prevValue === 0) {
-            return prevValue + 2;
-          }
-          return prevValue + 1;
-        });
+      if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+        setAddNewPhotos(true);
+        
+        
       }
     });
     return () => window.removeEventListener("scroll", event);
     // eslint-disable-next-line
-  }, [noResultsMessage.message]);
+  }, [noResultsMessage]);
 
   const handleSubmit = (e) => {
     //reset the photos data and run fetchImages function
