@@ -1,14 +1,18 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import ScrollTop from "./ScrollTop";
 import SearchForm from "./SearchForm";
 import PhotoList from "./PhotosList";
 import NavBar from "./NavBar";
+import FetchImages from "./FetchImages";
+import { ThemeProvider } from "@mui/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 //Enable smooth scroll for ios devices
 import smoothscroll from "smoothscroll-polyfill";
-import FetchImages from "./FetchImages";
 smoothscroll.polyfill();
 
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -32,9 +36,9 @@ const App = () => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar />
-      <main style={{ margin: "0.5rem" }}>
+      <main>
         <FetchImages
           loading={loading}
           setLoading={setLoading}
@@ -68,7 +72,7 @@ const App = () => {
         />
         <ScrollTop showBelow={250} />
       </main>
-    </>
+    </ThemeProvider>
   );
 };
 

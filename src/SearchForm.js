@@ -14,6 +14,7 @@ import CropPortraitSharpIcon from "@mui/icons-material/CropPortraitSharp";
 import CropSquareSharpIcon from "@mui/icons-material/CropSquareSharp";
 import CropLandscapeSharpIcon from "@mui/icons-material/CropLandscapeSharp";
 import CircleIcon from "@mui/icons-material/Circle";
+import { makeStyles } from "@mui/styles";
 
 //Colors palette for the Color filter
 const palette = [
@@ -28,7 +29,47 @@ const palette = [
   "Blue",
 ];
 
+const useStyles = makeStyles((theme) => ({
+  paperStyle: {
+    margin: "1rem auto",
+    [theme.breakpoints.up("sm")]: { width: "70vw" },
+    [theme.breakpoints.up("md")]: { width: "50vw" },
+  },
+  formStyle: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  searchDiv: {
+    display: "flex",
+    width: "95%",
+    padding: "10px 0",
+  },
+  buttonStyle: {
+    minWidth: "120px",
+    backgroundColor: "#D2042D",
+    borderRadius: "10px",
+    "&:hover": {
+      backgroundColor: "#b00024",
+    },
+  },
+  filtersWrapper: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "flex-end",
+  },
+  filterStyle: {
+    margin: "0.5rem",
+    minWidth: "150px",
+  },
+  iconStyle: {
+    marginRight: "5px",
+  },
+}));
+
 const SearchForm = (props) => {
+  const classes = useStyles();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {
     handleSubmit,
@@ -51,26 +92,9 @@ const SearchForm = (props) => {
   };
 
   return (
-    <Paper
-      elavation={3}
-      component={"section"}
-      sx={{ width: { sm: "70vw", md: "50vw" }, margin: "1rem auto" }}
-    >
-      <form
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "95%",
-            padding: "10px 0",
-          }}
-        >
+    <Paper elavation={3} component={"section"} className={classes.paperStyle}>
+      <form className={classes.formStyle}>
+        <div className={classes.searchDiv}>
           <TextField
             label="Start searching now..."
             variant="standard"
@@ -81,14 +105,7 @@ const SearchForm = (props) => {
           <Button
             onClick={handleSubmit}
             type="submit"
-            sx={{
-              padding: "10px 16px",
-              backgroundColor: "#D2042D",
-              borderRadius: "10px",
-              "&:hover": {
-                backgroundColor: "#b00024",
-              },
-            }}
+            className={classes.buttonStyle}
             variant="contained"
             aria-label="search"
             endIcon={<SearchIcon />}
@@ -97,18 +114,8 @@ const SearchForm = (props) => {
           </Button>
         </div>
         <Collapse in={openFilters}>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          >
-            <FormControl
-              variant="standard"
-              sx={{ m: 1, minWidth: 150, verticalAlign: "baseline" }}
-            >
+          <div className={classes.filtersWrapper}>
+            <FormControl variant="standard" className={classes.filterStyle}>
               <InputLabel id="sort-by">Sort by</InputLabel>
               <Select
                 labelId="sort-by"
@@ -126,10 +133,7 @@ const SearchForm = (props) => {
               </Select>
             </FormControl>
 
-            <FormControl
-              variant="standard"
-              sx={{ m: 1, minWidth: 150, verticalAlign: "baseline" }}
-            >
+            <FormControl variant="standard" className={classes.filterStyle}>
               <InputLabel id="orientation">Orientation</InputLabel>
               <Select
                 labelId="orientation"
@@ -144,23 +148,20 @@ const SearchForm = (props) => {
               >
                 <MenuItem value={"any"}>Any orientation</MenuItem>
                 <MenuItem value={"landscape"}>
-                  <CropLandscapeSharpIcon style={{ marginRight: "5px" }} />
+                  <CropLandscapeSharpIcon className={classes.iconStyle} />
                   Landscape
                 </MenuItem>
                 <MenuItem value={"portrait"}>
-                  <CropPortraitSharpIcon style={{ marginRight: "5px" }} />
+                  <CropPortraitSharpIcon className={classes.iconStyle} />
                   Portrait
                 </MenuItem>
                 <MenuItem value={"squarish"}>
-                  <CropSquareSharpIcon style={{ marginRight: "5px" }} />
+                  <CropSquareSharpIcon className={classes.iconStyle} />
                   Square
                 </MenuItem>
               </Select>
             </FormControl>
-            <FormControl
-              variant="standard"
-              sx={{ m: 1, minWidth: 150, verticalAlign: "baseline" }}
-            >
+            <FormControl variant="standard" className={classes.filterStyle}>
               <InputLabel id="color">Color</InputLabel>
               <Select
                 labelId="color"
@@ -179,7 +180,8 @@ const SearchForm = (props) => {
                   return (
                     <MenuItem value={color} key={index}>
                       <CircleIcon
-                        style={{ fill: `${color}`, marginRight: "5px" }}
+                        style={{ fill: `${color}` }}
+                        className={classes.iconStyle}
                       />
                       {color}
                     </MenuItem>
@@ -190,16 +192,7 @@ const SearchForm = (props) => {
             <Button
               variant="contained"
               disabled={isButtonDisabled}
-              sx={{
-                m: 1,
-                minWidth: 150,
-                verticalAlign: "baseline",
-                backgroundColor: "#D2042D",
-                borderRadius: "10px",
-                "&:hover": {
-                  backgroundColor: "#b00024",
-                },
-              }}
+              className={`${classes.buttonStyle} ${classes.filterStyle}`}
               onClick={clearFilters}
             >
               Clear filters

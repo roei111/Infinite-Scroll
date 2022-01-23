@@ -2,8 +2,28 @@ import React, { useState } from "react";
 import { Grow, Modal } from "@mui/material";
 import DetailedPhoto from "./DetailedPhoto";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  iconStyle: {
+    position: "absolute",
+    right: "0",
+    fill: "white",
+    padding: "0.5rem",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    borderRadius: "50%",
+    margin: "0.25rem",
+  },
+  imageWrapper: {
+    height: "100%",
+    width: "100%",
+    position: "relative",
+    cursor: "pointer",
+  },
+});
 
 const Photo = (props) => {
+  const classes = useStyles();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     urls: { small },
@@ -28,24 +48,9 @@ const Photo = (props) => {
         </>
       </Modal>
       <Grow in={true}>
-        <div style={{ height: "100%", width: "100%", position: "relative", cursor: "pointer" }} onClick={expandImageHandler}>
-          <img
-            src={small}
-            alt={alt_description}
-            className="image"
-          />
-          <OpenInFullIcon
-            style={{
-              position: "absolute",
-              right: "0",
-              fill: "white",
-              padding: "0.5rem",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              borderRadius: "50%",
-              margin: "0.25rem",
-            }}
-            fontSize="small"
-          />
+        <div className={classes.imageWrapper} onClick={expandImageHandler}>
+          <img src={small} alt={alt_description} className="image" />
+          <OpenInFullIcon className={classes.iconStyle} fontSize="small" />
         </div>
       </Grow>
     </>

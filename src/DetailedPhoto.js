@@ -9,11 +9,39 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseIcon from "@mui/icons-material/Close";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  cardStyle: {
+    [theme.breakpoints.up("xs")]: { margin: "0.5rem" },
+    [theme.breakpoints.up("md")]: { margin: "1rem auto", width: "85vw" },
+    marginTop: "1rem",
+  },
+  linkStyle: {
+    textDecoration: "none",
+    color: "black",
+  },
+  cardMediaStyle: {
+    maxHeight: "75vh",
+    objectFit: "contain",
+  },
+  cardActionsStyle: {
+    display: "flex",
+    [theme.breakpoints.up("xs")]: { justifyContent: "space-between" },
+    [theme.breakpoints.up("md")]: { justifyContent: "space-evenly" },
+  },
+  likesWrapper: {
+    display: "flex",
+  },
+  iconStyle: {
+    fill: "#D2042D",
+  },
+}));
 
 const DetailedPhoto = (props) => {
+  const classes = useStyles();
   const {
     urls: { regular },
     likes,
@@ -27,13 +55,7 @@ const DetailedPhoto = (props) => {
   } = props.photo;
   return (
     <Slide direction="up" in={true} mountOnEnter unmountOnExit>
-      <Card
-        sx={{
-          margin: { xs: "0.5rem", md: "1rem auto" },
-          marginTop: "1rem",
-          width: { md: "85vw" },
-        }}
-      >
+      <Card className={classes.cardStyle}>
         <CardHeader
           avatar={
             <Avatar aria-label="profile_image">
@@ -55,7 +77,7 @@ const DetailedPhoto = (props) => {
               href={html}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ textDecoration: "none", color: "black" }}
+              className={classes.linkStyle}
             >
               {name}
             </a>
@@ -66,16 +88,11 @@ const DetailedPhoto = (props) => {
           component="img"
           image={regular}
           alt="Paella dish"
-          sx={{ maxHeight: "75vh", objectFit: "contain" }}
+          className={classes.cardMediaStyle}
         />
-        <CardActions
-          sx={{
-            display: "flex",
-            justifyContent: { xs: "space-between", md: "space-evenly" },
-          }}
-        >
-          <div style={{ display: "flex" }}>
-            <FavoriteIcon style={{ fill: "#D2042D" }} />
+        <CardActions className={classes.cardActionsStyle}>
+          <div className={classes.likesWrapper}>
+            <FavoriteIcon className={classes.iconStyle} />
             <Typography ml={1}>{likes} likes</Typography>
           </div>
 

@@ -1,8 +1,29 @@
 import React, { useState, useEffect } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Button, Slide } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  wrapperDiv: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonStyle: {
+    display: "flex",
+    textAlign: "center",
+    position: "fixed",
+    bottom: "2vh",
+    borderRadius: "10px",
+    backgroundColor: "#D2042D",
+    "&:hover": {
+      backgroundColor: "#b00024",
+    },
+  },
+});
 
 const ScrollTop = ({ showBelow }) => {
+  const classes = useStyles();
   const [show, setShow] = useState(false);
 
   const handleClick = () => {
@@ -10,39 +31,23 @@ const ScrollTop = ({ showBelow }) => {
   };
 
   useEffect(() => {
-      const event= window.addEventListener(`scroll`,() => {
-        //Check if the vertical scroll pixels is bigger than the showBelow pixels and show button accordingly
-        if (window.scrollY > showBelow) {
-          if (!show) setShow(true);
-        } else {
-          if (show) setShow(false);
-        }
-      } );
-      return () => window.removeEventListener(`scroll`, event);
+    const event = window.addEventListener(`scroll`, () => {
+      //Check if the vertical scroll pixels is bigger than the showBelow pixels and show button accordingly
+      if (window.scrollY > showBelow) {
+        if (!show) setShow(true);
+      } else {
+        if (show) setShow(false);
+      }
+    });
+    return () => window.removeEventListener(`scroll`, event);
   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className={classes.wrapperDiv}>
       <Slide direction="up" in={show} mountOnEnter unmountOnExit>
         <Button
           onClick={handleClick}
-          sx={{
-            display: "flex",
-            textAlign: "center",
-            position: "fixed",
-            bottom: "2vh",
-            borderRadius: "10px",
-            backgroundColor: "#D2042D",
-            '&:hover': {
-              backgroundColor: "#b00024",
-            },
-          }}
+          className={classes.buttonStyle}
           variant="contained"
           aria-label="to top"
           startIcon={<KeyboardArrowUpIcon />}
