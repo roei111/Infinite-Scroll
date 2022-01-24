@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   gridStyle: {
     height: "20rem",
     width: "30rem",
-    marginX: "10px",
+    margin: "0 10px",
     position: "relative",
   },
   loaderWrapper: {

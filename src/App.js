@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ScrollTop from "./ScrollTop";
-import SearchForm from "./SearchForm";
-import PhotoList from "./PhotosList";
-import NavBar from "./NavBar";
-import FetchImages from "./FetchImages";
+import ScrollTop from "./components/layout/ScrollTop";
+import SearchForm from "./components/form/SearchForm";
+import PhotoList from "./components/photo/PhotosList";
+import NavBar from "./components/layout/NavBar";
+import FetchImages from "./components/service/FetchImages";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
@@ -33,6 +33,7 @@ const App = () => {
     e.preventDefault();
     setPhotos([]);
     setPage(1);
+    setAddNewPhotos(true);
   };
 
   return (
