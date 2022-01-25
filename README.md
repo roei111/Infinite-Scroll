@@ -5,6 +5,7 @@
 <img src="public/ogImage.png">
 <p align="center">
 <img src="public/mockup.png" height="700">
+  <img src="public/mockup2.png" height="700">
 </p>
 
 ## Website
