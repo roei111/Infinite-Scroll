@@ -2,14 +2,13 @@
 
 <h4>An image gallery that fetches data from Unsplash API. It has some awesome features like searching for images, apply filters (sort by, orientation and color) and infinite scrolling in which images keeps on loading as the user scrolls.</h4>
 
-<img src="public/ogImage.png">
-<p align="center">
-<img src="public/mockup.png" height="700">
-  <img src="public/mockup2.png" height="700">
-</p>
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=WmdbM44LBUU"><img src="public/youtube-embed-image.png" alt="Infinite Scroll Stock Photos - Roei Yaacobi - Youtube Video"></a>
-</p>
+![Mobile-App-Screen-Mockups (4)](https://user-images.githubusercontent.com/71691473/190929879-bafdcbd1-963c-4e61-80bc-ad19f24ddb04.png)
+
+![desktop-mockup](https://user-images.githubusercontent.com/71691473/190929882-92d20c75-01d7-45cb-bd0c-2399283b4b62.png)
+
+
+https://user-images.githubusercontent.com/71691473/190929871-125691ec-04ed-46c0-8f8c-43157334b6a1.mp4
+
 
 ## Website
 
